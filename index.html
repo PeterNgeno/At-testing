@@ -20,7 +20,7 @@
     .card {
       position: relative;
       width: 100%;
-      max-width: 600px; /* smaller for mobile */
+      max-width: 600px;
       background: linear-gradient(to bottom, #1c3d85, #0b1a3d);
       border-radius: 15px;
       padding: 20px;
@@ -190,7 +190,7 @@
       <div class="rose right"></div>
     </div>
 
-    <button onclick="downloadCard()">Download Invitation</button>
+    <button onclick="downloadCard()">Download Invitation (HD)</button>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -210,9 +210,9 @@
 
     function downloadCard() {
       const card = document.getElementById("invitation");
-      html2canvas(card).then(canvas => {
+      html2canvas(card, { scale: 3 }).then(canvas => {  // 🔥 High-resolution capture
         const link = document.createElement("a");
-        link.download = "wedding_invitation.png";
+        link.download = "wedding_invitation_hd.png";
         link.href = canvas.toDataURL("image/png");
         link.click();
       });

@@ -8,7 +8,7 @@
     body {
       margin: 0;
       font-family: 'Georgia', serif;
-      background: #f9f9f9;
+      background: #f2f2f2;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -17,86 +17,109 @@
 
     .card {
       position: relative;
-      width: 750px;
-      background: linear-gradient(to bottom, #12336f, #0b1540);
+      width: 800px;
+      background: linear-gradient(to bottom, #1c3d85, #0b1a3d);
       border-radius: 15px;
       padding: 30px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
       color: white;
+      text-align: center;
       overflow: hidden;
     }
 
-    /* Decorative gold ribbon */
-    .card::before {
-      content: "";
+    /* White patterned corners */
+    .corner {
       position: absolute;
-      top: 50%;
-      left: -100px;
-      width: 1000px;
+      width: 200px;
       height: 200px;
-      background: gold;
-      opacity: 0.2;
-      transform: rotate(-5deg);
+      background: white;
+      border-radius: 0 0 100px 0;
+      background-image: repeating-linear-gradient(45deg, #eee 0 2px, white 2px 6px);
       z-index: 0;
+    }
+    .corner.top-left {
+      top: 0; left: 0;
+      border-radius: 0 0 120px 0;
+    }
+    .corner.top-right {
+      top: 0; right: 0;
+      border-radius: 0 0 0 120px;
     }
 
     .names {
-      font-size: 42px;
+      font-size: 40px;
       font-family: 'Brush Script MT', cursive;
-      margin: 10px 0;
+      margin-top: 20px;
       z-index: 1;
       position: relative;
     }
     .names span {
-      color: gold;
+      margin: 0 15px;
     }
 
     .photos {
       display: flex;
       justify-content: space-between;
-      margin: 30px 0;
+      margin: 40px 0 20px;
       position: relative;
       z-index: 1;
     }
     .photo {
-      width: 40%;
-      height: 220px;
-      border: 5px solid gold;
+      width: 260px;
+      height: 300px;
+      border: 6px solid gold;
       border-radius: 15px;
-      background: #fff url('https://via.placeholder.com/200x220?text=Photo') center/cover no-repeat;
+      background: #fff url('https://via.placeholder.com/260x300?text=Photo') center/cover no-repeat;
     }
 
     .rings {
       position: absolute;
-      top: 45%;
+      top: 42%;
       left: 50%;
       transform: translate(-50%, -50%);
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: gold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       font-size: 60px;
-      color: gold;
+      box-shadow: 0 0 25px rgba(0,0,0,0.4);
       z-index: 2;
     }
 
     .date {
-      margin-top: 20px;
-      font-size: 28px;
+      background: white;
+      color: #b30000;
+      font-size: 36px;
       font-weight: bold;
+      display: inline-block;
+      padding: 10px 25px;
+      border-radius: 12px;
+      margin: 15px 0 5px;
+      z-index: 1;
+      position: relative;
     }
     .date span {
-      color: gold;
+      display: block;
+      color: #1c3d85;
       font-size: 20px;
+      font-weight: normal;
     }
 
     .venue {
-      margin-top: 10px;
-      font-size: 20px;
+      margin-top: 15px;
+      font-size: 22px;
+      font-weight: bold;
       color: gold;
     }
 
     .rsvp {
       display: flex;
       justify-content: space-between;
-      margin-top: 20px;
+      margin-top: 25px;
+      padding: 0 40px;
       font-size: 18px;
       font-weight: bold;
     }
@@ -109,11 +132,27 @@
       font-size: 16px;
       color: #fff;
     }
+
+    /* Decorative golden roses (placeholders as circles) */
+    .rose {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      background: gold;
+      border-radius: 50%;
+      bottom: 20px;
+    }
+    .rose.left { left: 20px; }
+    .rose.right { right: 20px; }
   </style>
 </head>
 <body>
   <div class="card">
+    <div class="corner top-left"></div>
+    <div class="corner top-right"></div>
+
     <div class="names">Carol <span>&</span> Peter</div>
+
     <div class="photos">
       <div class="photo"></div>
       <div class="photo"></div>
@@ -121,19 +160,24 @@
 
     <div class="rings">💍</div>
 
-    <div class="date">13TH <span>September, 2025</span></div>
+    <div class="date">
+      13TH
+      <span>September, 2025</span>
+    </div>
+
     <div class="venue">Venue: MOLO MAIN ALTAR</div>
 
     <div class="rsvp">
       <div>
-        RSVP<br>
-        <span>0748225015</span>
+        RSVP <br><span>0748225015</span>
       </div>
       <div>
-        RSVP<br>
-        <span>0798758088</span>
+        RSVP <br><span>0798758088</span>
       </div>
     </div>
+
+    <div class="rose left"></div>
+    <div class="rose right"></div>
   </div>
 </body>
 </html>

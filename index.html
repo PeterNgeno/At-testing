@@ -20,57 +20,58 @@
     .card {
       position: relative;
       width: 100%;
-      max-width: 1280px; /* HD width */
-      aspect-ratio: 16 / 9; /* 🔑 Locks strict 16:9 ratio */
+      max-width: 1280px;      /* ~HD width */
+      aspect-ratio: 16 / 9;   /* 🔑 Strict 16:9 */
       background: linear-gradient(to bottom, #1c3d85, #0b1a3d);
       border-radius: 20px;
-      padding: 40px;
       box-shadow: 0 15px 40px rgba(0,0,0,0.4);
       color: white;
       text-align: center;
       overflow: hidden;
+
+      /* flex layout so content fits */
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      padding: 2%;
     }
 
     .corner {
       position: absolute;
-      width: 200px;
-      height: 200px;
+      width: 15%;
+      height: 30%;
       background: white;
       background-image: repeating-linear-gradient(45deg, #eee 0 2px, white 2px 6px);
       z-index: 0;
     }
-    .corner.top-left { top: 0; left: 0; border-radius: 0 0 140px 0; }
-    .corner.top-right { top: 0; right: 0; border-radius: 0 0 0 140px; }
+    .corner.top-left { top: 0; left: 0; border-radius: 0 0 120px 0; }
+    .corner.top-right { top: 0; right: 0; border-radius: 0 0 0 120px; }
 
     .names {
-      font-size: 64px;
+      font-size: 6vh; /* scales with height */
       font-family: 'Brush Script MT', cursive;
-      margin-top: 20px;
+      margin-top: 1%;
       z-index: 1;
       position: relative;
     }
-    .names span { margin: 0 20px; }
+    .names span { margin: 0 2vw; }
 
     .photos {
       display: flex;
-      justify-content: space-between;
-      margin: 20px 0;
-      gap: 20px;
+      justify-content: space-evenly;
+      align-items: center;
+      flex: 1;
+      gap: 2%;
       position: relative;
       z-index: 1;
-      flex: 1;
-      align-items: center;
     }
     .photo {
       flex: 1;
-      height: 80%; /* fills space but keeps ratio inside */
+      max-width: 40%;
+      height: 70%;
       border: 6px solid gold;
       border-radius: 20px;
-      background: #fff url('https://via.placeholder.com/400x500?text=Click+to+Upload') center/contain no-repeat;
-      background-size: cover;
+      background: #fff url('https://via.placeholder.com/400x500?text=Click+to+Upload') center/cover no-repeat;
       image-rendering: high-quality;
       cursor: pointer;
       position: relative;
@@ -80,17 +81,18 @@
 
     .rings {
       position: absolute;
-      top: 45%;
+      top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 120px;
-      height: 120px;
+      width: 10%;
+      height: auto;
+      aspect-ratio: 1/1;
       border-radius: 50%;
       background: gold;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 60px;
+      font-size: 5vh;
       box-shadow: 0 0 20px rgba(0,0,0,0.5);
       z-index: 2;
     }
@@ -98,25 +100,25 @@
     .date {
       background: white;
       color: #b30000;
-      font-size: 48px;
+      font-size: 4vh;
       font-weight: bold;
       display: inline-block;
-      padding: 10px 25px;
+      padding: 0.5em 1em;
       border-radius: 15px;
-      margin: 20px 0;
+      margin: 1% auto;
       z-index: 1;
       position: relative;
     }
     .date span {
       display: block;
       color: #1c3d85;
-      font-size: 28px;
+      font-size: 2.5vh;
       font-weight: normal;
     }
 
     .venue {
-      margin-top: 10px;
-      font-size: 32px;
+      margin-top: 1%;
+      font-size: 3vh;
       font-weight: bold;
       color: gold;
     }
@@ -124,30 +126,29 @@
     .rsvp {
       display: flex;
       justify-content: space-between;
-      margin-top: 15px;
-      padding: 0 40px;
-      font-size: 24px;
+      padding: 0 5%;
+      font-size: 2.5vh;
       font-weight: bold;
-      gap: 20px;
+      gap: 5%;
     }
     .rsvp div { flex: 1; text-align: center; }
     .rsvp span {
       display: block;
       font-weight: normal;
-      font-size: 20px;
+      font-size: 2vh;
       color: #fff;
     }
 
     .rose {
       position: absolute;
-      width: 80px;
-      height: 80px;
+      width: 6%;
+      aspect-ratio: 1/1;
       background: gold;
       border-radius: 50%;
-      bottom: 20px;
+      bottom: 2%;
     }
-    .rose.left { left: 20px; }
-    .rose.right { right: 20px; }
+    .rose.left { left: 2%; }
+    .rose.right { right: 2%; }
 
     .editable { outline: none; cursor: text; }
 
@@ -199,7 +200,7 @@
       <div class="rose right"></div>
     </div>
 
-    <button onclick="downloadCard()">Download Invitation (Ultra HD)</button>
+    <button onclick="downloadCard()">Download Invitation (16x9 Ultra HD)</button>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -219,7 +220,12 @@
 
     function downloadCard() {
       const card = document.getElementById("invitation");
-      html2canvas(card, { scale: 5, useCORS: true }).then(canvas => {
+      html2canvas(card, { 
+        scale: 5, 
+        useCORS: true, 
+        width: card.offsetWidth, 
+        height: card.offsetHeight 
+      }).then(canvas => {
         const link = document.createElement("a");
         link.download = "wedding_invitation_16x9_ultrahd.png";
         link.href = canvas.toDataURL("image/png", 1.0);

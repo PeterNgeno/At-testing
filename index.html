@@ -1,68 +1,158 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Editable Flier</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wedding Invitation</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background: #f2f2f2;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      background: #f0f0f0;
+      min-height: 100vh;
     }
-    .flier {
-      display: grid;
-      grid-template-columns: repeat(2, 200px);
-      grid-gap: 15px;
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
-    .box {
-      width: 200px;
-      height: 250px;
-      border: 2px dashed #999;
-      border-radius: 10px;
-      text-align: center;
+
+    .card {
       position: relative;
+      width: 800px;
+      background: linear-gradient(to bottom, #1c3d85, #0b1a3d);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      color: white;
+      text-align: center;
       overflow: hidden;
-      background: #fafafa;
     }
-    .box img {
-      width: 100%;
-      height: 70%;
-      object-fit: cover;
-    }
-    .desc {
-      height: 30%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      color: #333;
-      padding: 5px;
-    }
-    .desc[contenteditable="true"] {
-      border-top: 1px solid #ccc;
-      outline: none;
-    }
-    .upload {
+
+    .corner {
       position: absolute;
-      top: 5px;
-      left: 5px;
-      font-size: 12px;
+      width: 200px;
+      height: 200px;
+      background: white;
+      border-radius: 0 0 100px 0;
+      background-image: repeating-linear-gradient(45deg, #eee 0 2px, white 2px 6px);
+      z-index: 0;
+    }
+    .corner.top-left { top: 0; left: 0; border-radius: 0 0 120px 0; }
+    .corner.top-right { top: 0; right: 0; border-radius: 0 0 0 120px; }
+
+    .names {
+      font-size: 40px;
+      font-family: 'Brush Script MT', cursive;
+      margin-top: 20px;
+      z-index: 1;
+      position: relative;
+    }
+    .names span { margin: 0 15px; }
+
+    .photos {
+      display: flex;
+      justify-content: space-between;
+      margin: 40px 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .photo {
+      width: 260px;
+      height: 300px;
+      border: 6px solid gold;
+      border-radius: 15px;
+      background: #fff url('https://via.placeholder.com/260x300?text=Click+to+Upload') center/cover no-repeat;
+      cursor: pointer;
+      position: relative;
+    }
+    .photo:hover::after {
+      content: "Click to upload";
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
       background: rgba(0,0,0,0.6);
       color: white;
-      padding: 2px 5px;
+      padding: 5px 10px;
       border-radius: 5px;
-      cursor: pointer;
+      font-size: 14px;
     }
+    .photo input { display: none; }
+
+    .rings {
+      position: absolute;
+      top: 42%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: gold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 60px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.4);
+      z-index: 2;
+    }
+
+    .date {
+      background: white;
+      color: #b30000;
+      font-size: 36px;
+      font-weight: bold;
+      display: inline-block;
+      padding: 10px 25px;
+      border-radius: 12px;
+      margin: 15px 0 5px;
+      z-index: 1;
+      position: relative;
+    }
+    .date span {
+      display: block;
+      color: #1c3d85;
+      font-size: 20px;
+      font-weight: normal;
+    }
+
+    .venue {
+      margin-top: 15px;
+      font-size: 22px;
+      font-weight: bold;
+      color: gold;
+    }
+
+    .rsvp {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 25px;
+      padding: 0 40px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .rsvp div { text-align: center; }
+    .rsvp span {
+      display: block;
+      font-weight: normal;
+      font-size: 16px;
+      color: #fff;
+    }
+
+    .rose {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      background: gold;
+      border-radius: 50%;
+      bottom: 20px;
+    }
+    .rose.left { left: 20px; }
+    .rose.right { right: 20px; }
+
+    .editable { outline: none; cursor: text; }
+
     button {
       margin-top: 20px;
-      padding: 10px 15px;
+      padding: 10px 20px;
       border: none;
       border-radius: 8px;
       background: darkblue;
@@ -70,64 +160,69 @@
       font-size: 16px;
       cursor: pointer;
     }
-    button:hover {
-      background: navy;
-    }
+    button:hover { background: navy; }
   </style>
 </head>
 <body>
   <div>
-    <div class="flier" id="flier">
-      <div class="box">
-        <label class="upload">Upload
-          <input type="file" accept="image/*" hidden onchange="loadImage(event, this)">
+    <div class="card" id="invitation">
+      <div class="corner top-left"></div>
+      <div class="corner top-right"></div>
+
+      <div class="names editable" contenteditable="true">Carol <span>&</span> Peter</div>
+
+      <div class="photos">
+        <!-- Photo 1 -->
+        <label class="photo">
+          <input type="file" accept="image/*" onchange="previewImage(event, this)">
         </label>
-        <img src="" alt="">
-        <div class="desc" contenteditable="true">Enter description...</div>
-      </div>
-      <div class="box">
-        <label class="upload">Upload
-          <input type="file" accept="image/*" hidden onchange="loadImage(event, this)">
+        <!-- Photo 2 -->
+        <label class="photo">
+          <input type="file" accept="image/*" onchange="previewImage(event, this)">
         </label>
-        <img src="" alt="">
-        <div class="desc" contenteditable="true">Enter description...</div>
       </div>
-      <div class="box">
-        <label class="upload">Upload
-          <input type="file" accept="image/*" hidden onchange="loadImage(event, this)">
-        </label>
-        <img src="" alt="">
-        <div class="desc" contenteditable="true">Enter description...</div>
+
+      <div class="rings">💍</div>
+
+      <div class="date editable" contenteditable="true">
+        13TH
+        <span>September, 2025</span>
       </div>
-      <div class="box">
-        <label class="upload">Upload
-          <input type="file" accept="image/*" hidden onchange="loadImage(event, this)">
-        </label>
-        <img src="" alt="">
-        <div class="desc" contenteditable="true">Enter description...</div>
+
+      <div class="venue editable" contenteditable="true">Venue: MOLO MAIN ALTAR</div>
+
+      <div class="rsvp">
+        <div class="editable" contenteditable="true">RSVP <br><span>0748225015</span></div>
+        <div class="editable" contenteditable="true">RSVP <br><span>0798758088</span></div>
       </div>
+
+      <div class="rose left"></div>
+      <div class="rose right"></div>
     </div>
-    <button onclick="downloadFlier()">Download Flier</button>
+
+    <button onclick="downloadCard()">Download Invitation</button>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script>
-    function loadImage(event, input) {
+    function previewImage(event, input) {
       const file = event.target.files[0];
       if (file) {
         const reader = new FileReader();
         reader.onload = function(e) {
-          input.closest('.box').querySelector('img').src = e.target.result;
-        }
+          input.parentElement.style.backgroundImage = `url(${e.target.result})`;
+          input.parentElement.style.backgroundSize = "cover";
+          input.parentElement.style.backgroundPosition = "center";
+        };
         reader.readAsDataURL(file);
       }
     }
 
-    function downloadFlier() {
-      const flier = document.getElementById("flier");
-      html2canvas(flier).then(canvas => {
+    function downloadCard() {
+      const card = document.getElementById("invitation");
+      html2canvas(card).then(canvas => {
         const link = document.createElement("a");
-        link.download = "flier.png";
+        link.download = "wedding_invitation.png";
         link.href = canvas.toDataURL("image/png");
         link.click();
       });

@@ -20,7 +20,8 @@
     .card {
       position: relative;
       width: 100%;
-      max-width: 1200px; /* Large width for clarity */
+      max-width: 1280px; /* HD width */
+      aspect-ratio: 16 / 9; /* 🔑 Locks strict 16:9 ratio */
       background: linear-gradient(to bottom, #1c3d85, #0b1a3d);
       border-radius: 20px;
       padding: 40px;
@@ -28,6 +29,9 @@
       color: white;
       text-align: center;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .corner {
@@ -53,19 +57,21 @@
     .photos {
       display: flex;
       justify-content: space-between;
-      margin: 40px 0 25px;
+      margin: 20px 0;
       gap: 20px;
       position: relative;
       z-index: 1;
+      flex: 1;
+      align-items: center;
     }
     .photo {
       flex: 1;
-      height: 400px;
+      height: 80%; /* fills space but keeps ratio inside */
       border: 6px solid gold;
       border-radius: 20px;
       background: #fff url('https://via.placeholder.com/400x500?text=Click+to+Upload') center/contain no-repeat;
       background-size: cover;
-      image-rendering: high-quality; /* Force sharp images */
+      image-rendering: high-quality;
       cursor: pointer;
       position: relative;
       overflow: hidden;
@@ -109,7 +115,7 @@
     }
 
     .venue {
-      margin-top: 20px;
+      margin-top: 10px;
       font-size: 32px;
       font-weight: bold;
       color: gold;
@@ -118,7 +124,7 @@
     .rsvp {
       display: flex;
       justify-content: space-between;
-      margin-top: 25px;
+      margin-top: 15px;
       padding: 0 40px;
       font-size: 24px;
       font-weight: bold;
@@ -203,7 +209,6 @@
       if (file) {
         const reader = new FileReader();
         reader.onload = function(e) {
-          // Insert uploaded photo as HD background
           input.parentElement.style.backgroundImage = `url(${e.target.result})`;
           input.parentElement.style.backgroundSize = "cover";
           input.parentElement.style.backgroundPosition = "center";
@@ -216,8 +221,8 @@
       const card = document.getElementById("invitation");
       html2canvas(card, { scale: 5, useCORS: true }).then(canvas => {
         const link = document.createElement("a");
-        link.download = "wedding_invitation_ultrahd.png";
-        link.href = canvas.toDataURL("image/png", 1.0); // Max quality
+        link.download = "wedding_invitation_16x9_ultrahd.png";
+        link.href = canvas.toDataURL("image/png", 1.0);
         link.click();
       });
     }

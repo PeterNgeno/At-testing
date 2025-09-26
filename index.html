@@ -13,15 +13,18 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
     }
 
     .card {
       position: relative;
-      width: 900px;
+      width: 100%;
+      max-width: 1200px; /* Large width for clarity */
       background: linear-gradient(to bottom, #1c3d85, #0b1a3d);
-      border-radius: 15px;
-      padding: 30px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
       color: white;
       text-align: center;
       overflow: hidden;
@@ -32,58 +35,42 @@
       width: 200px;
       height: 200px;
       background: white;
-      border-radius: 0 0 100px 0;
       background-image: repeating-linear-gradient(45deg, #eee 0 2px, white 2px 6px);
       z-index: 0;
     }
-    .corner.top-left { top: 0; left: 0; border-radius: 0 0 120px 0; }
-    .corner.top-right { top: 0; right: 0; border-radius: 0 0 0 120px; }
+    .corner.top-left { top: 0; left: 0; border-radius: 0 0 140px 0; }
+    .corner.top-right { top: 0; right: 0; border-radius: 0 0 0 140px; }
 
     .names {
-      font-size: 40px;
+      font-size: 64px;
       font-family: 'Brush Script MT', cursive;
       margin-top: 20px;
       z-index: 1;
       position: relative;
     }
-    .names span { margin: 0 15px; }
+    .names span { margin: 0 20px; }
 
     .photos {
       display: flex;
       justify-content: space-between;
-      margin: 40px 0 20px;
+      margin: 40px 0 25px;
+      gap: 20px;
       position: relative;
       z-index: 1;
-      gap: 20px;
     }
-
     .photo {
       flex: 1;
-      max-width: 400px;
-      aspect-ratio: 16 / 9;       /* keeps 16:9 ratio */
+      height: 400px;
       border: 6px solid gold;
-      border-radius: 15px;
-      background: #fff url('https://via.placeholder.com/400x225?text=Click+to+Upload') center/contain no-repeat;
+      border-radius: 20px;
+      background: #fff url('https://via.placeholder.com/400x500?text=Click+to+Upload') center/contain no-repeat;
+      background-size: cover;
+      image-rendering: high-quality; /* Force sharp images */
       cursor: pointer;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
     }
-    .photo:hover::after {
-      content: "Click to upload";
-      position: absolute;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0,0,0,0.6);
-      color: white;
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 14px;
-    }
-    .photo input {
-      display: none;
-    }
+    .photo input { display: none; }
 
     .rings {
       position: absolute;
@@ -98,32 +85,32 @@
       justify-content: center;
       align-items: center;
       font-size: 60px;
-      box-shadow: 0 0 25px rgba(0,0,0,0.4);
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
       z-index: 2;
     }
 
     .date {
       background: white;
       color: #b30000;
-      font-size: 36px;
+      font-size: 48px;
       font-weight: bold;
       display: inline-block;
       padding: 10px 25px;
-      border-radius: 12px;
-      margin: 15px 0 5px;
+      border-radius: 15px;
+      margin: 20px 0;
       z-index: 1;
       position: relative;
     }
     .date span {
       display: block;
       color: #1c3d85;
-      font-size: 20px;
+      font-size: 28px;
       font-weight: normal;
     }
 
     .venue {
-      margin-top: 15px;
-      font-size: 22px;
+      margin-top: 20px;
+      font-size: 32px;
       font-weight: bold;
       color: gold;
     }
@@ -133,14 +120,15 @@
       justify-content: space-between;
       margin-top: 25px;
       padding: 0 40px;
-      font-size: 18px;
+      font-size: 24px;
       font-weight: bold;
+      gap: 20px;
     }
-    .rsvp div { text-align: center; }
+    .rsvp div { flex: 1; text-align: center; }
     .rsvp span {
       display: block;
       font-weight: normal;
-      font-size: 16px;
+      font-size: 20px;
       color: #fff;
     }
 
@@ -154,57 +142,84 @@
     }
     .rose.left { left: 20px; }
     .rose.right { right: 20px; }
+
+    .editable { outline: none; cursor: text; }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      background: darkblue;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    button:hover { background: navy; }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="corner top-left"></div>
-    <div class="corner top-right"></div>
+  <div>
+    <div class="card" id="invitation">
+      <div class="corner top-left"></div>
+      <div class="corner top-right"></div>
 
-    <div class="names">Carol <span>&</span> Peter</div>
+      <div class="names editable" contenteditable="true">Carol <span>&</span> Peter</div>
 
-    <div class="photos">
-      <!-- Photo 1 -->
-      <label class="photo">
-        <input type="file" accept="image/*" onchange="previewImage(event, this)">
-      </label>
-      <!-- Photo 2 -->
-      <label class="photo">
-        <input type="file" accept="image/*" onchange="previewImage(event, this)">
-      </label>
+      <div class="photos">
+        <label class="photo">
+          <input type="file" accept="image/*" onchange="previewImage(event, this)">
+        </label>
+        <label class="photo">
+          <input type="file" accept="image/*" onchange="previewImage(event, this)">
+        </label>
+      </div>
+
+      <div class="rings">💍</div>
+
+      <div class="date editable" contenteditable="true">
+        13TH
+        <span>September, 2025</span>
+      </div>
+
+      <div class="venue editable" contenteditable="true">Venue: MOLO MAIN ALTAR</div>
+
+      <div class="rsvp">
+        <div class="editable" contenteditable="true">RSVP <br><span>0748225015</span></div>
+        <div class="editable" contenteditable="true">RSVP <br><span>0798758088</span></div>
+      </div>
+
+      <div class="rose left"></div>
+      <div class="rose right"></div>
     </div>
 
-    <div class="rings">💍</div>
-
-    <div class="date">
-      13TH
-      <span>September, 2025</span>
-    </div>
-
-    <div class="venue">Venue: MOLO MAIN ALTAR</div>
-
-    <div class="rsvp">
-      <div>RSVP <br><span>0748225015</span></div>
-      <div>RSVP <br><span>0798758088</span></div>
-    </div>
-
-    <div class="rose left"></div>
-    <div class="rose right"></div>
+    <button onclick="downloadCard()">Download Invitation (Ultra HD)</button>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script>
     function previewImage(event, input) {
       const file = event.target.files[0];
       if (file) {
         const reader = new FileReader();
         reader.onload = function(e) {
+          // Insert uploaded photo as HD background
           input.parentElement.style.backgroundImage = `url(${e.target.result})`;
-          input.parentElement.style.backgroundSize = "contain";  // ultra clear
-          input.parentElement.style.backgroundRepeat = "no-repeat";
+          input.parentElement.style.backgroundSize = "cover";
           input.parentElement.style.backgroundPosition = "center";
         };
         reader.readAsDataURL(file);
       }
+    }
+
+    function downloadCard() {
+      const card = document.getElementById("invitation");
+      html2canvas(card, { scale: 5, useCORS: true }).then(canvas => {
+        const link = document.createElement("a");
+        link.download = "wedding_invitation_ultrahd.png";
+        link.href = canvas.toDataURL("image/png", 1.0); // Max quality
+        link.click();
+      });
     }
   </script>
 </body>

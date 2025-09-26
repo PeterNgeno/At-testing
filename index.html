@@ -27,7 +27,6 @@
       overflow: hidden;
     }
 
-    /* White patterned corners */
     .corner {
       position: absolute;
       width: 200px;
@@ -37,14 +36,8 @@
       background-image: repeating-linear-gradient(45deg, #eee 0 2px, white 2px 6px);
       z-index: 0;
     }
-    .corner.top-left {
-      top: 0; left: 0;
-      border-radius: 0 0 120px 0;
-    }
-    .corner.top-right {
-      top: 0; right: 0;
-      border-radius: 0 0 0 120px;
-    }
+    .corner.top-left { top: 0; left: 0; border-radius: 0 0 120px 0; }
+    .corner.top-right { top: 0; right: 0; border-radius: 0 0 0 120px; }
 
     .names {
       font-size: 40px;
@@ -53,9 +46,7 @@
       z-index: 1;
       position: relative;
     }
-    .names span {
-      margin: 0 15px;
-    }
+    .names span { margin: 0 15px; }
 
     .photos {
       display: flex;
@@ -69,7 +60,24 @@
       height: 300px;
       border: 6px solid gold;
       border-radius: 15px;
-      background: #fff url('https://via.placeholder.com/260x300?text=Photo') center/cover no-repeat;
+      background: #fff url('https://via.placeholder.com/260x300?text=Click+to+Upload') center/cover no-repeat;
+      cursor: pointer;
+      position: relative;
+    }
+    .photo:hover::after {
+      content: "Click to upload";
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.6);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    .photo input {
+      display: none;
     }
 
     .rings {
@@ -123,9 +131,7 @@
       font-size: 18px;
       font-weight: bold;
     }
-    .rsvp div {
-      text-align: center;
-    }
+    .rsvp div { text-align: center; }
     .rsvp span {
       display: block;
       font-weight: normal;
@@ -133,7 +139,6 @@
       color: #fff;
     }
 
-    /* Decorative golden roses (placeholders as circles) */
     .rose {
       position: absolute;
       width: 80px;
@@ -154,8 +159,14 @@
     <div class="names">Carol <span>&</span> Peter</div>
 
     <div class="photos">
-      <div class="photo"></div>
-      <div class="photo"></div>
+      <!-- Photo 1 -->
+      <label class="photo">
+        <input type="file" accept="image/*" onchange="previewImage(event, this)">
+      </label>
+      <!-- Photo 2 -->
+      <label class="photo">
+        <input type="file" accept="image/*" onchange="previewImage(event, this)">
+      </label>
     </div>
 
     <div class="rings">💍</div>
@@ -168,16 +179,27 @@
     <div class="venue">Venue: MOLO MAIN ALTAR</div>
 
     <div class="rsvp">
-      <div>
-        RSVP <br><span>0748225015</span>
-      </div>
-      <div>
-        RSVP <br><span>0798758088</span>
-      </div>
+      <div>RSVP <br><span>0748225015</span></div>
+      <div>RSVP <br><span>0798758088</span></div>
     </div>
 
     <div class="rose left"></div>
     <div class="rose right"></div>
   </div>
+
+  <script>
+    function previewImage(event, input) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          input.parentElement.style.backgroundImage = `url(${e.target.result})`;
+          input.parentElement.style.backgroundSize = "cover";
+          input.parentElement.style.backgroundPosition = "center";
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  </script>
 </body>
-</html>
+      </html>

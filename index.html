@@ -3,124 +3,137 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Graphic Designer Services</title>
+  <title>Wedding Invitation</title>
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #06134a, #0b0e2e);
-      color: white;
+      font-family: 'Georgia', serif;
+      background: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
     }
 
-    .flyer {
+    .card {
       position: relative;
-      max-width: 800px;
-      margin: auto;
-      padding: 40px 30px;
+      width: 750px;
+      background: linear-gradient(to bottom, #12336f, #0b1540);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      text-align: center;
+      color: white;
       overflow: hidden;
     }
 
-    /* Yellow curved border */
-    .flyer::before {
+    /* Decorative gold ribbon */
+    .card::before {
       content: "";
       position: absolute;
-      top: -100px;
-      right: -300px;
-      width: 500px;
-      height: 500px;
-      background: #f9b100;
-      border-radius: 50%;
+      top: 50%;
+      left: -100px;
+      width: 1000px;
+      height: 200px;
+      background: gold;
+      opacity: 0.2;
+      transform: rotate(-5deg);
       z-index: 0;
     }
 
-    .header {
-      position: relative;
-      z-index: 1;
-    }
-    .header h2 {
-      font-size: 16px;
-      font-weight: normal;
-      margin: 0;
-    }
-    .header h1 {
-      font-size: 36px;
-      font-weight: bold;
-      margin: 5px 0;
-    }
-    .header span {
-      color: #f9b100;
-    }
-
-    .services {
-      margin-top: 30px;
-      position: relative;
-      z-index: 1;
-    }
-    .services h3 {
-      font-size: 20px;
-      background: #0e0f4a;
-      display: inline-block;
-      padding: 5px 15px;
-      border-radius: 5px;
-      border: 2px solid #f9b100;
-    }
-    .services ul {
-      list-style: none;
-      padding: 0;
-      margin-top: 20px;
-    }
-    .services li {
+    .names {
+      font-size: 42px;
+      font-family: 'Brush Script MT', cursive;
       margin: 10px 0;
-      font-size: 18px;
+      z-index: 1;
+      position: relative;
     }
-    .services li::before {
-      content: "✔";
-      color: #00ffcc;
-      margin-right: 10px;
-      font-weight: bold;
+    .names span {
+      color: gold;
     }
 
-    .contact {
-      margin-top: 40px;
-      padding: 15px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      text-align: center;
-      font-size: 18px;
+    .photos {
+      display: flex;
+      justify-content: space-between;
+      margin: 30px 0;
+      position: relative;
+      z-index: 1;
     }
-    .contact span {
-      display: block;
-      margin-top: 5px;
-      color: #f9b100;
+    .photo {
+      width: 40%;
+      height: 220px;
+      border: 5px solid gold;
+      border-radius: 15px;
+      background: #fff url('https://via.placeholder.com/200x220?text=Photo') center/cover no-repeat;
+    }
+
+    .rings {
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 60px;
+      color: gold;
+      z-index: 2;
+    }
+
+    .date {
+      margin-top: 20px;
+      font-size: 28px;
       font-weight: bold;
+    }
+    .date span {
+      color: gold;
+      font-size: 20px;
+    }
+
+    .venue {
+      margin-top: 10px;
+      font-size: 20px;
+      color: gold;
+    }
+
+    .rsvp {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .rsvp div {
+      text-align: center;
+    }
+    .rsvp span {
+      display: block;
+      font-weight: normal;
+      font-size: 16px;
+      color: #fff;
     }
   </style>
 </head>
 <body>
-  <div class="flyer">
-    <div class="header">
-      <h2>WEB <span>PERON TIPS</span></h2>
-      <h1>Professional <span>GRAPHIC</span><br>DESIGNER</h1>
+  <div class="card">
+    <div class="names">Carol <span>&</span> Peter</div>
+    <div class="photos">
+      <div class="photo"></div>
+      <div class="photo"></div>
     </div>
 
-    <div class="services">
-      <h3>SERVICES</h3>
-      <ul>
-        <li>Flyer / Poster Design</li>
-        <li>Logo Design</li>
-        <li>Banners Design</li>
-        <li>Social Media Post</li>
-        <li>Book Cover Design</li>
-        <li>Illustration</li>
-        <li>Church Banners</li>
-        <li>Wedding Banners / Invitation Cards</li>
-      </ul>
-    </div>
+    <div class="rings">💍</div>
 
-    <div class="contact">
-      📞 For more information WhatsApp us:
-      <span>0715719644/0756263400</span></span>
+    <div class="date">13TH <span>September, 2025</span></div>
+    <div class="venue">Venue: MOLO MAIN ALTAR</div>
+
+    <div class="rsvp">
+      <div>
+        RSVP<br>
+        <span>0748225015</span>
+      </div>
+      <div>
+        RSVP<br>
+        <span>0798758088</span>
+      </div>
     </div>
   </div>
 </body>
-  </html>
+</html>

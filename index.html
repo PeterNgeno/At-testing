@@ -3,220 +3,68 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wedding Invitation</title>
+  <title>Flyer Template</title>
   <style>
     body {
-      margin: 0;
-      font-family: 'Georgia', serif;
-      background: #f2f2f2;
+      background: #f0f0f0;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 20px;
-      box-sizing: border-box;
     }
-
-    .card {
-      position: relative;
-      width: 100%;
-      max-width: 600px;
-      background: linear-gradient(to bottom, #1c3d85, #0b1a3d);
+    .flyer {
+      width: 800px;   /* Bigger base width = clearer image */
+      background: white;
       border-radius: 15px;
       padding: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-      color: white;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
       text-align: center;
-      overflow: hidden;
-    }
-
-    .corner {
-      position: absolute;
-      width: 120px;
-      height: 120px;
-      background: white;
-      background-image: repeating-linear-gradient(45deg, #eee 0 2px, white 2px 6px);
-      z-index: 0;
-    }
-    .corner.top-left { top: 0; left: 0; border-radius: 0 0 80px 0; }
-    .corner.top-right { top: 0; right: 0; border-radius: 0 0 0 80px; }
-
-    .names {
-      font-size: 28px;
-      font-family: 'Brush Script MT', cursive;
-      margin-top: 10px;
-      z-index: 1;
-      position: relative;
-    }
-    .names span { margin: 0 10px; }
-
-    .photos {
-      display: flex;
-      justify-content: space-between;
-      margin: 25px 0 15px;
-      gap: 10px;
-      position: relative;
-      z-index: 1;
     }
     .photo {
-      flex: 1;
+      width: 200px;
       height: 200px;
-      border: 4px solid gold;
+      border: 3px solid #333;
       border-radius: 10px;
-      background: #fff url('https://via.placeholder.com/200x250?text=Click+to+Upload') center/cover no-repeat;
-      cursor: pointer;
-      position: relative;
+      margin: auto;
+      background: #ddd;
+      background-size: cover;
+      background-position: center;
     }
-    .photo input { display: none; }
-
-    .rings {
-      position: absolute;
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: gold;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 40px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.4);
-      z-index: 2;
-    }
-
-    .date {
-      background: white;
-      color: #b30000;
-      font-size: 24px;
-      font-weight: bold;
-      display: inline-block;
-      padding: 6px 15px;
-      border-radius: 10px;
-      margin: 10px 0;
-      z-index: 1;
-      position: relative;
-    }
-    .date span {
-      display: block;
-      color: #1c3d85;
-      font-size: 16px;
-      font-weight: normal;
-    }
-
-    .venue {
-      margin-top: 10px;
-      font-size: 18px;
-      font-weight: bold;
-      color: gold;
-    }
-
-    .rsvp {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 15px;
-      padding: 0 20px;
-      font-size: 16px;
-      font-weight: bold;
-      gap: 10px;
-    }
-    .rsvp div { flex: 1; text-align: center; }
-    .rsvp span {
-      display: block;
-      font-weight: normal;
-      font-size: 14px;
-      color: #fff;
-    }
-
-    .rose {
-      position: absolute;
-      width: 50px;
-      height: 50px;
-      background: gold;
-      border-radius: 50%;
-      bottom: 10px;
-    }
-    .rose.left { left: 10px; }
-    .rose.right { right: 10px; }
-
-    .editable { outline: none; cursor: text; }
-
+    h2 { font-size: 28px; margin: 15px 0; }
+    p { font-size: 18px; }
     button {
-      margin-top: 15px;
-      padding: 8px 16px;
-      border: none;
-      border-radius: 6px;
+      margin-top: 20px;
+      padding: 10px 20px;
       background: darkblue;
       color: white;
-      font-size: 14px;
+      border: none;
+      border-radius: 8px;
       cursor: pointer;
     }
-    button:hover { background: navy; }
   </style>
 </head>
 <body>
-  <div>
-    <div class="card" id="invitation">
-      <div class="corner top-left"></div>
-      <div class="corner top-right"></div>
-
-      <div class="names editable" contenteditable="true">Carol <span>&</span> Peter</div>
-
-      <div class="photos">
-        <label class="photo">
-          <input type="file" accept="image/*" onchange="previewImage(event, this)">
-        </label>
-        <label class="photo">
-          <input type="file" accept="image/*" onchange="previewImage(event, this)">
-        </label>
-      </div>
-
-      <div class="rings">💍</div>
-
-      <div class="date editable" contenteditable="true">
-        13TH
-        <span>September, 2025</span>
-      </div>
-
-      <div class="venue editable" contenteditable="true">Venue: MOLO MAIN ALTAR</div>
-
-      <div class="rsvp">
-        <div class="editable" contenteditable="true">RSVP <br><span>0748225015</span></div>
-        <div class="editable" contenteditable="true">RSVP <br><span>0798758088</span></div>
-      </div>
-
-      <div class="rose left"></div>
-      <div class="rose right"></div>
-    </div>
-
-    <button onclick="downloadCard()">Download Invitation (HD)</button>
+  <div id="flyer" class="flyer">
+    <div class="photo" id="photo"></div>
+    <h2 contenteditable="true">[Insert Title Here]</h2>
+    <p contenteditable="true">[Insert description text here. Anyone can edit this.]</p>
   </div>
+  
+  <button id="download">Download HD Flyer</button>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script>
-    function previewImage(event, input) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          input.parentElement.style.backgroundImage = `url(${e.target.result})`;
-          input.parentElement.style.backgroundSize = "cover";
-          input.parentElement.style.backgroundPosition = "center";
-        };
-        reader.readAsDataURL(file);
-      }
-    }
-
-    function downloadCard() {
-      const card = document.getElementById("invitation");
-      html2canvas(card, { scale: 3 }).then(canvas => {  // 🔥 High-resolution capture
-        const link = document.createElement("a");
-        link.download = "wedding_invitation_hd.png";
+    document.getElementById("download").addEventListener("click", function() {
+      html2canvas(document.getElementById("flyer"), { scale: 4 }).then(canvas => {
+        let link = document.createElement("a");
+        link.download = "flyer.png";
         link.href = canvas.toDataURL("image/png");
         link.click();
       });
-    }
+    });
+
+    // Example: Insert photo
+    document.getElementById("photo").style.backgroundImage = "url('yourphoto.jpg')";
   </script>
 </body>
 </html>

@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Creative Flyer</title>
-
-  <!-- html2canvas for Download -->
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
   <style>
@@ -19,99 +17,138 @@
 
     #flyer {
       position: relative;
-      width: 800px;   /* HD width */
-      height: 1100px; /* HD height */
-      background: url("your-background.jpg") no-repeat center/cover;
-      color: white;
+      width: 800px;   /* HD size */
+      height: 1100px;
+      background: white;
       overflow: hidden;
-      padding: 20px;
-      box-sizing: border-box;
-      border: 5px solid #000;
-    }
-
-    /* Transparent Hexagon Window */
-    .hexagon {
-      position: absolute;
-      top: 30%;
-      left: 55%;
-      width: 300px;
-      height: 173px;
-      background: transparent;
-      clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
-      border: 10px solid #b40000;
       box-sizing: border-box;
     }
 
-    /* Text styling */
+    /* TOP RIGHT COMPANY NAME */
     .header {
+      position: absolute;
+      top: 20px;
+      right: 30px;
       text-align: right;
     }
-
     .header h1 {
       margin: 0;
-      font-size: 28px;
+      font-size: 26px;
       color: #b40000;
     }
-
-    .tagline {
+    .header p {
       margin: 0;
-      font-size: 18px;
+      font-size: 16px;
       color: #555;
     }
 
-    .left-text h2 {
-      color: #b40000;
-      font-size: 48px;
-      margin-top: 50px;
+    /* CREATIVE GRAPHIC DESIGN LEFT */
+    .main-title {
+      position: absolute;
+      top: 120px;
+      left: 40px;
+      font-size: 42px;
       line-height: 1.2;
+      font-weight: bold;
+      color: #b40000;
+    }
+    .main-title span {
+      color: black;
+      font-weight: normal;
     }
 
-    .services {
+    /* HEXAGON transparent window */
+    .hexagon {
+      position: absolute;
+      top: 280px;
+      right: 120px;
+      width: 360px;
+      height: 208px;
+      background: transparent;
+      clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+      border: 12px solid #b40000;
+      box-sizing: border-box;
+    }
+
+    /* DIAGONAL SHAPES */
+    .red-strip-top {
+      position: absolute;
+      top: 90px;
+      right: -200px;
+      width: 800px;
+      height: 80px;
+      background: #b40000;
+      transform: rotate(-20deg);
+    }
+    .black-strip {
+      position: absolute;
+      top: 300px;
+      left: -200px;
+      width: 900px;
+      height: 80px;
+      background: black;
+      transform: rotate(-30deg);
+    }
+    .red-strip-bottom {
       position: absolute;
       bottom: 200px;
-      left: 20px;
+      left: -250px;
+      width: 1000px;
+      height: 100px;
+      background: #b40000;
+      transform: rotate(-25deg);
     }
 
+    /* SERVICES BOX */
+    .services {
+      position: absolute;
+      bottom: 260px;
+      left: 40px;
+      color: white;
+      font-size: 20px;
+    }
     .services h3 {
-      margin-bottom: 10px;
-      font-size: 24px;
-      color: #fff;
+      font-size: 26px;
+      margin-bottom: 12px;
     }
-
     .services ul {
       list-style: none;
       padding: 0;
+      margin: 0;
     }
-
     .services li {
-      font-size: 18px;
-      margin: 5px 0;
+      margin: 6px 0;
     }
-
     .services li::before {
       content: "▶ ";
       color: #b40000;
     }
 
+    /* FOOTER CONTACT INFO */
     .footer {
       position: absolute;
-      bottom: 20px;
-      left: 20px;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #b40000;
+      color: white;
+      padding: 15px;
+      display: flex;
+      justify-content: space-around;
       font-size: 16px;
-      color: #fff;
     }
 
+    /* DOWNLOAD BUTTON */
     #downloadBtn {
       margin-top: 20px;
-      padding: 10px 20px;
+      padding: 12px 22px;
       font-size: 18px;
       background: #b40000;
       color: #fff;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
       cursor: pointer;
     }
-
     #downloadBtn:hover {
       background: #900000;
     }
@@ -123,20 +160,25 @@
     <!-- Header -->
     <div class="header">
       <h1>Company Name</h1>
-      <p class="tagline">Your Tagline Here</p>
+      <p>Tag line</p>
     </div>
 
-    <!-- Left Side Text -->
-    <div class="left-text">
-      <h2><span>CREATIVE</span><br>GRAPHIC DESIGN</h2>
+    <!-- Title -->
+    <div class="main-title">
+      <span>CREATIVE</span><br>GRAPHIC DESIGN
     </div>
+
+    <!-- Diagonal strips -->
+    <div class="red-strip-top"></div>
+    <div class="black-strip"></div>
+    <div class="red-strip-bottom"></div>
 
     <!-- Transparent Hexagon -->
     <div class="hexagon"></div>
 
     <!-- Services -->
     <div class="services">
-      <h3>SERVICES</h3>
+      <h3>SERVICE</h3>
       <ul>
         <li>Graphic Design</li>
         <li>Business Card</li>
@@ -163,7 +205,7 @@
   <script>
     document.getElementById("downloadBtn").addEventListener("click", () => {
       html2canvas(document.querySelector("#flyer"), {
-        scale: 3 // increase quality
+        scale: 3 // HD
       }).then(canvas => {
         const link = document.createElement("a");
         link.download = "flyer-hd.png";
@@ -173,4 +215,4 @@
     });
   </script>
 </body>
-  </html>
+</html>

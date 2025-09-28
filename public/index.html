@@ -1,218 +1,261 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Creative Flyer</title>
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Flyer — exact style</title>
 
-  <style>
-    body {
-      background: #ccc;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-family: Arial, sans-serif;
-    }
+<!-- Google font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-    #flyer {
-      position: relative;
-      width: 800px;   /* HD size */
-      height: 1100px;
-      background: white;
-      overflow: hidden;
-      box-sizing: border-box;
-    }
+<!-- html2canvas for download -->
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
-    /* TOP RIGHT COMPANY NAME */
-    .header {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      text-align: right;
-    }
-    .header h1 {
-      margin: 0;
-      font-size: 26px;
-      color: #b40000;
-    }
-    .header p {
-      margin: 0;
-      font-size: 16px;
-      color: #555;
-    }
+<style>
+  :root{
+    --red:#b71c1c;
+    --red-dark:#7f0f0f;
+    --black:#000;
+    --page-w:800px;
+    --page-h:1100px;
+    --hex-clip: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  }
 
-    /* CREATIVE GRAPHIC DESIGN LEFT */
-    .main-title {
-      position: absolute;
-      top: 120px;
-      left: 40px;
-      font-size: 42px;
-      line-height: 1.2;
-      font-weight: bold;
-      color: #b40000;
-    }
-    .main-title span {
-      color: black;
-      font-weight: normal;
-    }
+  html,body{
+    height:100%;
+    margin:0;
+    font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#ddd;
+  }
 
-    /* HEXAGON transparent window */
-    .hexagon {
-      position: absolute;
-      top: 280px;
-      right: 120px;
-      width: 360px;
-      height: 208px;
-      background: transparent;
-      clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
-      border: 12px solid #b40000;
-      box-sizing: border-box;
-    }
+  /* container */
+  #flyer{
+    width:var(--page-w);
+    height:var(--page-h);
+    position:relative;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    overflow:hidden;
+    -webkit-print-color-adjust: exact; /* preserve colors when printing */
+  }
 
-    /* DIAGONAL SHAPES */
-    .red-strip-top {
-      position: absolute;
-      top: 90px;
-      right: -200px;
-      width: 800px;
-      height: 80px;
-      background: #b40000;
-      transform: rotate(-20deg);
-    }
-    .black-strip {
-      position: absolute;
-      top: 300px;
-      left: -200px;
-      width: 900px;
-      height: 80px;
-      background: black;
-      transform: rotate(-30deg);
-    }
-    .red-strip-bottom {
-      position: absolute;
-      bottom: 200px;
-      left: -250px;
-      width: 1000px;
-      height: 100px;
-      background: #b40000;
-      transform: rotate(-25deg);
-    }
+  /* TOP LEFT thick black diagonal */
+  .diag-black-top{
+    position:absolute;
+    left:-300px;
+    top:-80px;
+    width:1400px;
+    height:120px;
+    background:var(--black);
+    transform: rotate(-22deg);
+    z-index:6;
+  }
 
-    /* SERVICES BOX */
-    .services {
-      position: absolute;
-      bottom: 260px;
-      left: 40px;
-      color: white;
-      font-size: 20px;
-    }
-    .services h3 {
-      font-size: 26px;
-      margin-bottom: 12px;
-    }
-    .services ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .services li {
-      margin: 6px 0;
-    }
-    .services li::before {
-      content: "▶ ";
-      color: #b40000;
-    }
+  /* Top red strips (parallel, layered) */
+  .diag-red-top-1{
+    position:absolute;
+    right:-320px;
+    top:10px;
+    width:1100px;
+    height:90px;
+    background:var(--red);
+    transform:rotate(-22deg);
+    z-index:8;
+  }
+  .diag-red-top-2{
+    position:absolute;
+    right:-250px;
+    top:50px;
+    width:900px;
+    height:60px;
+    background:var(--red-dark);
+    transform:rotate(-22deg);
+    z-index:9;
+    opacity:0.98;
+  }
 
-    /* FOOTER CONTACT INFO */
-    .footer {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: #b40000;
-      color: white;
-      padding: 15px;
-      display: flex;
-      justify-content: space-around;
-      font-size: 16px;
-    }
+  /* small red strip above hexagon (thin) */
+  .diag-red-top-3{
+    position:absolute;
+    right:-150px;
+    top:120px;
+    width:700px;
+    height:40px;
+    background:var(--red);
+    transform:rotate(-22deg);
+    z-index:10;
+  }
 
-    /* DOWNLOAD BUTTON */
-    #downloadBtn {
-      margin-top: 20px;
-      padding: 12px 22px;
-      font-size: 18px;
-      background: #b40000;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    #downloadBtn:hover {
-      background: #900000;
-    }
-  </style>
-</head>
-<body>
-  <div id="flyer">
+  /* Bottom left black big diagonal area (services background) */
+  .diag-black-bottom{
+    position:absolute;
+    left:-450px;
+    bottom:-220px;
+    width:1600px;
+    height:800px;
+    background:var(--black);
+    transform:rotate(-32deg);
+    z-index:3;
+  }
 
-    <!-- Header -->
-    <div class="header">
-      <h1>Company Name</h1>
-      <p>Tag line</p>
-    </div>
+  /* thin red accent inside bottom left */
+  .diag-red-bottom{
+    position:absolute;
+    left:-420px;
+    bottom:-170px;
+    width:1600px;
+    height:140px;
+    background:var(--red);
+    transform:rotate(-32deg);
+    z-index:4;
+  }
 
-    <!-- Title -->
-    <div class="main-title">
-      <span>CREATIVE</span><br>GRAPHIC DESIGN
-    </div>
+  /* Header (company name + tag) top-right */
+  .header{
+    position:absolute;
+    top:18px;
+    right:28px;
+    text-align:right;
+    z-index:12;
+  }
+  .header h1{
+    margin:0;
+    font-size:24px;
+    color:var(--red);
+    font-weight:700;
+    letter-spacing:0.5px;
+  }
+  .header p{
+    margin:3px 0 0;
+    font-size:14px;
+    color:#444;
+  }
 
-    <!-- Diagonal strips -->
-    <div class="red-strip-top"></div>
-    <div class="black-strip"></div>
-    <div class="red-strip-bottom"></div>
+  /* Left big title "CREATIVE / GRAPHIC DESIGN" */
+  .main-title{
+    position:absolute;
+    top:120px;
+    left:36px;
+    z-index:11;
+    line-height:0.95;
+  }
+  .main-title .line1{
+    font-size:34px;
+    color:var(--red);
+    display:block;
+    font-weight:700;
+  }
+  .main-title .line2{
+    font-size:56px;
+    display:block;
+    color:var(--red);
+    font-weight:800;
+    margin-top:8px;
+  }
+  .main-title .underline{
+    width:110px;
+    height:6px;
+    background:#111;
+    margin-top:18px;
+  }
 
-    <!-- Transparent Hexagon -->
-    <div class="hexagon"></div>
+  /* Hexagon (image clipped inside) */
+  .hexagon{
+    --w:360px;
+    --h:312px; /* approx sqrt(3)/2 * w */
+    position:absolute;
+    right:72px;
+    top:240px;
+    width:var(--w);
+    height:var(--h);
+    z-index:7;
+    pointer-events:auto;
+  }
 
-    <!-- Services -->
-    <div class="services">
-      <h3>SERVICE</h3>
-      <ul>
-        <li>Graphic Design</li>
-        <li>Business Card</li>
-        <li>PSD Templates</li>
-        <li>T-shirt Design</li>
-        <li>Marketing</li>
-        <li>Social Media</li>
-        <li>E-commerce Design</li>
-      </ul>
-    </div>
+  /* red outer border using pseudo element */
+  .hexagon::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    clip-path:var(--hex-clip);
+    box-sizing:border-box;
+    border:12px solid var(--red);
+    background:transparent;
+    z-index:8;
+  }
 
-    <!-- Footer -->
-    <div class="footer">
-      <p>📞 +123 456 789</p>
-      <p>✉️ business@email.com</p>
-      <p>🌍 www.business.com</p>
-      <p>📍 123 Street, City</p>
-    </div>
-  </div>
+  /* inner white thin border to mimic picture frame */
+  .hexagon::after{
+    content:"";
+    position:absolute;
+    inset:12px; /* same as outer border */
+    clip-path:var(--hex-clip);
+    box-sizing:border-box;
+    border:6px solid #fff;
+    background:transparent;
+    z-index:9;
+  }
 
-  <!-- Download Button -->
-  <button id="downloadBtn">Download in HD</button>
+  /* The image placed inside (clipped to hexagon) */
+  .hexagon img{
+    position:absolute;
+    inset:18px; /* allow for borders */
+    width: calc(100% - 36px);
+    height: calc(100% - 36px);
+    object-fit:cover;
+    clip-path: var(--hex-clip);
+    z-index:10;
+    background: repeating-conic-gradient(#eee 0% 25%, #fff 0% 50%); /* subtle placeholder */
+  }
 
-  <script>
-    document.getElementById("downloadBtn").addEventListener("click", () => {
-      html2canvas(document.querySelector("#flyer"), {
-        scale: 3 // HD
-      }).then(canvas => {
-        const link = document.createElement("a");
-        link.download = "flyer-hd.png";
-        link.href = canvas.toDataURL("image/png");
-        link.click();
-      });
-    });
-  </script>
-</body>
-</html>
+  /* small red triangle near hexagon top-left (pointing left) */
+  .small-tri{
+    position:absolute;
+    right:430px;
+    top:320px;
+    width:0;
+    height:0;
+    border-left:32px solid transparent;
+    border-right:32px solid transparent;
+    border-bottom:56px solid var(--red);
+    transform:rotate(-30deg);
+    z-index:11;
+  }
+
+  /* SERVICES text inside black area */
+  .services{
+    position:absolute;
+    left:36px;
+    bottom:260px;
+    z-index:11;
+    color:#fff;
+    width:360px;
+  }
+  .services h3{
+    font-size:34px;
+    margin:0 0 12px;
+    letter-spacing:1px;
+  }
+
+  .services .cols{
+    display:flex;
+    gap:26px;
+  }
+  .services ul{
+    padding:0;
+    margin:0;
+    list-style:none;
+  }
+  .services li{
+    font-size:16px;
+    margin:10px 0;
+    opacity:0.95;
+  }
+  .services li::before{
+    content:"▶";
+    margin-right:8px;
+    color:var(--red);
+    font-weight:700;

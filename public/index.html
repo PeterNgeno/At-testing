@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creative Flyer</title>
+
+  <!-- html2canvas for Download -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+  <style>
+    body {
+      background: #ccc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: Arial, sans-serif;
+    }
+
+    #flyer {
+      position: relative;
+      width: 800px;   /* HD width */
+      height: 1100px; /* HD height */
+      background: url("your-background.jpg") no-repeat center/cover;
+      color: white;
+      overflow: hidden;
+      padding: 20px;
+      box-sizing: border-box;
+      border: 5px solid #000;
+    }
+
+    /* Transparent Hexagon Window */
+    .hexagon {
+      position: absolute;
+      top: 30%;
+      left: 55%;
+      width: 300px;
+      height: 173px;
+      background: transparent;
+      clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+      border: 10px solid #b40000;
+      box-sizing: border-box;
+    }
+
+    /* Text styling */
+    .header {
+      text-align: right;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 28px;
+      color: #b40000;
+    }
+
+    .tagline {
+      margin: 0;
+      font-size: 18px;
+      color: #555;
+    }
+
+    .left-text h2 {
+      color: #b40000;
+      font-size: 48px;
+      margin-top: 50px;
+      line-height: 1.2;
+    }
+
+    .services {
+      position: absolute;
+      bottom: 200px;
+      left: 20px;
+    }
+
+    .services h3 {
+      margin-bottom: 10px;
+      font-size: 24px;
+      color: #fff;
+    }
+
+    .services ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .services li {
+      font-size: 18px;
+      margin: 5px 0;
+    }
+
+    .services li::before {
+      content: "▶ ";
+      color: #b40000;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      font-size: 16px;
+      color: #fff;
+    }
+
+    #downloadBtn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background: #b40000;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #downloadBtn:hover {
+      background: #900000;
+    }
+  </style>
+</head>
+<body>
+  <div id="flyer">
+
+    <!-- Header -->
+    <div class="header">
+      <h1>Company Name</h1>
+      <p class="tagline">Your Tagline Here</p>
+    </div>
+
+    <!-- Left Side Text -->
+    <div class="left-text">
+      <h2><span>CREATIVE</span><br>GRAPHIC DESIGN</h2>
+    </div>
+
+    <!-- Transparent Hexagon -->
+    <div class="hexagon"></div>
+
+    <!-- Services -->
+    <div class="services">
+      <h3>SERVICES</h3>
+      <ul>
+        <li>Graphic Design</li>
+        <li>Business Card</li>
+        <li>PSD Templates</li>
+        <li>T-shirt Design</li>
+        <li>Marketing</li>
+        <li>Social Media</li>
+        <li>E-commerce Design</li>
+      </ul>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>📞 +123 456 789</p>
+      <p>✉️ business@email.com</p>
+      <p>🌍 www.business.com</p>
+      <p>📍 123 Street, City</p>
+    </div>
+  </div>
+
+  <!-- Download Button -->
+  <button id="downloadBtn">Download in HD</button>
+
+  <script>
+    document.getElementById("downloadBtn").addEventListener("click", () => {
+      html2canvas(document.querySelector("#flyer"), {
+        scale: 3 // increase quality
+      }).then(canvas => {
+        const link = document.createElement("a");
+        link.download = "flyer-hd.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      });
+    });
+  </script>
+</body>
+  </html>

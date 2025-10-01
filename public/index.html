@@ -1,261 +1,90 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Flyer — exact style</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Circle Frame with Ribbon</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f3f3f3;
+    }
 
-<!-- Google font -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    .frame {
+      position: relative;
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, gold, darkgoldenrod);
+      border: 10px solid crimson; /* inner red border */
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    }
 
-<!-- html2canvas for download -->
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    .inner {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      right: 15px;
+      bottom: 15px;
+      border-radius: 50%;
+      background: white; /* photo goes here */
+      overflow: hidden;
+    }
 
-<style>
-  :root{
-    --red:#b71c1c;
-    --red-dark:#7f0f0f;
-    --black:#000;
-    --page-w:800px;
-    --page-h:1100px;
-    --hex-clip: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-  }
+    .inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-  html,body{
-    height:100%;
-    margin:0;
-    font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:#ddd;
-  }
+    .ribbon {
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-2deg);
+      width: 180px;
+      height: 50px;
+      background: linear-gradient(to right, crimson, darkred);
+      border-radius: 10px;
+      color: white;
+      text-align: center;
+      line-height: 50px;
+      font-weight: bold;
+      font-family: sans-serif;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    }
 
-  /* container */
-  #flyer{
-    width:var(--page-w);
-    height:var(--page-h);
-    position:relative;
-    background: #fff;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    overflow:hidden;
-    -webkit-print-color-adjust: exact; /* preserve colors when printing */
-  }
+    .ribbon::before,
+    .ribbon::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      width: 25px;
+      height: 25px;
+      background: inherit;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+    }
 
-  /* TOP LEFT thick black diagonal */
-  .diag-black-top{
-    position:absolute;
-    left:-300px;
-    top:-80px;
-    width:1400px;
-    height:120px;
-    background:var(--black);
-    transform: rotate(-22deg);
-    z-index:6;
-  }
+    .ribbon::before {
+      left: -20px;
+      transform: rotate(20deg);
+    }
 
-  /* Top red strips (parallel, layered) */
-  .diag-red-top-1{
-    position:absolute;
-    right:-320px;
-    top:10px;
-    width:1100px;
-    height:90px;
-    background:var(--red);
-    transform:rotate(-22deg);
-    z-index:8;
-  }
-  .diag-red-top-2{
-    position:absolute;
-    right:-250px;
-    top:50px;
-    width:900px;
-    height:60px;
-    background:var(--red-dark);
-    transform:rotate(-22deg);
-    z-index:9;
-    opacity:0.98;
-  }
-
-  /* small red strip above hexagon (thin) */
-  .diag-red-top-3{
-    position:absolute;
-    right:-150px;
-    top:120px;
-    width:700px;
-    height:40px;
-    background:var(--red);
-    transform:rotate(-22deg);
-    z-index:10;
-  }
-
-  /* Bottom left black big diagonal area (services background) */
-  .diag-black-bottom{
-    position:absolute;
-    left:-450px;
-    bottom:-220px;
-    width:1600px;
-    height:800px;
-    background:var(--black);
-    transform:rotate(-32deg);
-    z-index:3;
-  }
-
-  /* thin red accent inside bottom left */
-  .diag-red-bottom{
-    position:absolute;
-    left:-420px;
-    bottom:-170px;
-    width:1600px;
-    height:140px;
-    background:var(--red);
-    transform:rotate(-32deg);
-    z-index:4;
-  }
-
-  /* Header (company name + tag) top-right */
-  .header{
-    position:absolute;
-    top:18px;
-    right:28px;
-    text-align:right;
-    z-index:12;
-  }
-  .header h1{
-    margin:0;
-    font-size:24px;
-    color:var(--red);
-    font-weight:700;
-    letter-spacing:0.5px;
-  }
-  .header p{
-    margin:3px 0 0;
-    font-size:14px;
-    color:#444;
-  }
-
-  /* Left big title "CREATIVE / GRAPHIC DESIGN" */
-  .main-title{
-    position:absolute;
-    top:120px;
-    left:36px;
-    z-index:11;
-    line-height:0.95;
-  }
-  .main-title .line1{
-    font-size:34px;
-    color:var(--red);
-    display:block;
-    font-weight:700;
-  }
-  .main-title .line2{
-    font-size:56px;
-    display:block;
-    color:var(--red);
-    font-weight:800;
-    margin-top:8px;
-  }
-  .main-title .underline{
-    width:110px;
-    height:6px;
-    background:#111;
-    margin-top:18px;
-  }
-
-  /* Hexagon (image clipped inside) */
-  .hexagon{
-    --w:360px;
-    --h:312px; /* approx sqrt(3)/2 * w */
-    position:absolute;
-    right:72px;
-    top:240px;
-    width:var(--w);
-    height:var(--h);
-    z-index:7;
-    pointer-events:auto;
-  }
-
-  /* red outer border using pseudo element */
-  .hexagon::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    clip-path:var(--hex-clip);
-    box-sizing:border-box;
-    border:12px solid var(--red);
-    background:transparent;
-    z-index:8;
-  }
-
-  /* inner white thin border to mimic picture frame */
-  .hexagon::after{
-    content:"";
-    position:absolute;
-    inset:12px; /* same as outer border */
-    clip-path:var(--hex-clip);
-    box-sizing:border-box;
-    border:6px solid #fff;
-    background:transparent;
-    z-index:9;
-  }
-
-  /* The image placed inside (clipped to hexagon) */
-  .hexagon img{
-    position:absolute;
-    inset:18px; /* allow for borders */
-    width: calc(100% - 36px);
-    height: calc(100% - 36px);
-    object-fit:cover;
-    clip-path: var(--hex-clip);
-    z-index:10;
-    background: repeating-conic-gradient(#eee 0% 25%, #fff 0% 50%); /* subtle placeholder */
-  }
-
-  /* small red triangle near hexagon top-left (pointing left) */
-  .small-tri{
-    position:absolute;
-    right:430px;
-    top:320px;
-    width:0;
-    height:0;
-    border-left:32px solid transparent;
-    border-right:32px solid transparent;
-    border-bottom:56px solid var(--red);
-    transform:rotate(-30deg);
-    z-index:11;
-  }
-
-  /* SERVICES text inside black area */
-  .services{
-    position:absolute;
-    left:36px;
-    bottom:260px;
-    z-index:11;
-    color:#fff;
-    width:360px;
-  }
-  .services h3{
-    font-size:34px;
-    margin:0 0 12px;
-    letter-spacing:1px;
-  }
-
-  .services .cols{
-    display:flex;
-    gap:26px;
-  }
-  .services ul{
-    padding:0;
-    margin:0;
-    list-style:none;
-  }
-  .services li{
-    font-size:16px;
-    margin:10px 0;
-    opacity:0.95;
-  }
-  .services li::before{
-    content:"▶";
-    margin-right:8px;
-    color:var(--red);
-    font-weight:700;
+    .ribbon::after {
+      right: -20px;
+      transform: rotate(-20deg);
+    }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <div class="inner">
+      <img src="your-photo.jpg" alt="Photo">
+    </div>
+    <div class="ribbon">Your Text</div>
+  </div>
+</body>
+</html>

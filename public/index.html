@@ -3,34 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Circle Frame with Ribbon</title>
+  <title>Metallic Frame with Ribbon</title>
   <style>
     body {
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      background: #f3f3f3;
+      background: #f6f6f6;
     }
 
     .frame {
       position: relative;
-      width: 250px;
-      height: 250px;
+      width: 300px;
+      height: 300px;
       border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, gold, darkgoldenrod);
-      border: 10px solid crimson; /* inner red border */
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      background: conic-gradient(
+        from 180deg,
+        #fff7c0,
+        #d4af37,
+        #ffd700,
+        #fff7c0,
+        #b8860b,
+        #ffd700,
+        #fff7c0
+      ); /* metallic gold shine */
+      padding: 15px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
     }
 
     .inner {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      right: 15px;
-      bottom: 15px;
+      width: 100%;
+      height: 100%;
       border-radius: 50%;
-      background: white; /* photo goes here */
+      background: white;
       overflow: hidden;
     }
 
@@ -40,21 +46,23 @@
       object-fit: cover;
     }
 
+    /* Ribbon */
     .ribbon {
       position: absolute;
       bottom: -20px;
       left: 50%;
       transform: translateX(-50%) rotate(-2deg);
-      width: 180px;
-      height: 50px;
-      background: linear-gradient(to right, crimson, darkred);
-      border-radius: 10px;
+      width: 200px;
+      height: 60px;
+      background: linear-gradient(135deg, #ff0040, #b3002d, #ff0040);
+      border-radius: 8px;
       color: white;
-      text-align: center;
-      line-height: 50px;
       font-weight: bold;
+      font-size: 18px;
+      text-align: center;
+      line-height: 60px;
       font-family: sans-serif;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+      box-shadow: 0 5px 10px rgba(0,0,0,0.4);
     }
 
     .ribbon::before,
@@ -62,20 +70,20 @@
       content: "";
       position: absolute;
       bottom: 0;
-      width: 25px;
-      height: 25px;
+      width: 30px;
+      height: 30px;
       background: inherit;
       clip-path: polygon(0 0, 100% 0, 50% 100%);
     }
 
     .ribbon::before {
-      left: -20px;
-      transform: rotate(20deg);
+      left: -22px;
+      transform: rotate(25deg);
     }
 
     .ribbon::after {
-      right: -20px;
-      transform: rotate(-20deg);
+      right: -22px;
+      transform: rotate(-25deg);
     }
   </style>
 </head>
